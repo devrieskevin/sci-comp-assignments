@@ -30,7 +30,7 @@ c = solve_2D_diffusion_eq(step,init_c,(bound_y0,bound_yN),misc)
 
 fig = plt.figure(figsize=(20,10))
 
-im = plt.imshow(c[0,:,:],origin='lower',animated=True)
+im = plt.imshow(c[0,:,:],origin='lower',cmap="jet",animated=True)
 
 plt.title("Time integration of the time dependent diffusion equation")
 

@@ -11,6 +11,11 @@ from scipy.special import erfc
 from scipy.misc import imread,imresize
 
 class object_grid(object):
+    """
+    An object grid class which can be used to maintain a grid of objects,
+    which can be used to dynamically add objects to the same grid.
+    """
+
     def __init__(self,nx,ny,dx=None,dy=None):
         self.grid = np.zeros((nx,ny))
         self.dx = dx
@@ -172,6 +177,10 @@ def solve_2D_diffusion_eq(step_params,init_c,bound_params,misc_params):
     return c
 
 def solve_2D_diffusion_analytic(x,t,N,D):
+    """
+    Calculates the analytic solution of the time dependent 
+    diffusion equation given in exercise set 1
+    """
     i = np.arange(0,N)[:,None]
     term1 = erfc((1-x[None,:]+2*i) / (2*np.sqrt(D*t)))
     term2 = erfc((1+x[None,:]+2*i) / (2*np.sqrt(D*t)))
@@ -243,6 +252,9 @@ def solve_laplace_SOR(N,eps,init_c,bound_params,misc_params,w=1,bool_grid=None,v
     c[1,:,N] = bound_yN(dx*np.arange(0,N))
 
     deltas = []
+
+    if bool_grid is not None:
+        c[1][bool_grid] = 0
 
     while True:
         # set old values
